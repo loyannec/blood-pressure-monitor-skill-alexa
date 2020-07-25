@@ -1,148 +1,160 @@
 {
-  "interactionModel": {
-      "languageModel": {
-          "invocationName": "pressure monitor",
-          "intents": [
-              {
-                  "name": "AMAZON.CancelIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.HelpIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.StopIntent",
-                  "samples": []
-              },
-              {
-                  "name": "HelloWorldIntent",
-                  "slots": [],
-                  "samples": [
-                      "hello",
-                      "how are you",
-                      "say hi world",
-                      "say hi",
-                      "hi",
-                      "say hello world",
-                      "say hello"
-                  ]
-              },
-              {
-                  "name": "AMAZON.NavigateHomeIntent",
-                  "samples": []
-              },
-              {
-                  "name": "RegisterPressureIntent",
-                  "slots": [
-                      {
-                          "name": "systolic_number",
-                          "type": "AMAZON.NUMBER",
-                          "samples": [
-                              "{systolic_number}"
-                          ]
-                      },
-                      {
-                          "name": "diastolic_number",
-                          "type": "AMAZON.NUMBER",
-                          "samples": [
-                              "{diastolic_number}"
-                          ]
-                      }
-                  ],
-                  "samples": [
-                      "add pressure {systolic_number} by {diastolic_number}",
-                      "my pressure is {systolic_number} by {diastolic_number}",
-                      "register pressure {systolic_number} by {diastolic_number}",
-                      "add pressure {systolic_number} {diastolic_number}",
-                      "my pressure is {systolic_number} {diastolic_number}",
-                      "register pressure {systolic_number} {diastolic_number}"
-                  ]
-              }
-          ],
-          "types": []
-      },
-      "dialog": {
-          "intents": [
-              {
-                  "name": "RegisterPressureIntent",
-                  "confirmationRequired": false,
-                  "prompts": {},
-                  "slots": [
-                      {
-                          "name": "systolic_number",
-                          "type": "AMAZON.NUMBER",
-                          "confirmationRequired": false,
-                          "elicitationRequired": true,
-                          "prompts": {
-                              "elicitation": "Elicit.Slot.862639089379.802784599243"
-                          },
-                          "validations": [
-                              {
-                                  "type": "isGreaterThanOrEqualTo",
-                                  "prompt": "Slot.Validation.862639089379.802784599243.1168956400203",
-                                  "value": "0"
-                              }
-                          ]
-                      },
-                      {
-                          "name": "diastolic_number",
-                          "type": "AMAZON.NUMBER",
-                          "confirmationRequired": false,
-                          "elicitationRequired": true,
-                          "prompts": {
-                              "elicitation": "Elicit.Slot.862639089379.28674936122"
-                          },
-                          "validations": [
-                              {
-                                  "type": "isGreaterThanOrEqualTo",
-                                  "prompt": "Slot.Validation.862639089379.28674936122.1433511105104",
-                                  "value": "0"
-                              }
-                          ]
-                      }
-                  ]
-              }
-          ],
-          "delegationStrategy": "ALWAYS"
-      },
-      "prompts": [
-          {
-              "id": "Elicit.Slot.862639089379.802784599243",
-              "variations": [
-                  {
-                      "type": "PlainText",
-                      "value": "What is your current systolic top number?"
-                  }
-              ]
-          },
-          {
-              "id": "Slot.Validation.862639089379.802784599243.1168956400203",
-              "variations": [
-                  {
-                      "type": "PlainText",
-                      "value": "Tell a number greater than or equal to zero."
-                  }
-              ]
-          },
-          {
-              "id": "Elicit.Slot.862639089379.28674936122",
-              "variations": [
-                  {
-                      "type": "PlainText",
-                      "value": "What is your current diastolic bottom number?"
-                  }
-              ]
-          },
-          {
-              "id": "Slot.Validation.862639089379.28674936122.1433511105104",
-              "variations": [
-                  {
-                      "type": "PlainText",
-                      "value": "Tell a number greater than or equal to zero."
-                  }
-              ]
-          }
-      ]
-  }
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "pressure monitor",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "HelloWorldIntent",
+                    "slots": [],
+                    "samples": [
+                        "hello",
+                        "how are you",
+                        "say hi world",
+                        "say hi",
+                        "hi",
+                        "say hello world",
+                        "say hello"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "RegisterPressureIntent",
+                    "slots": [
+                        {
+                            "name": "systolic_number",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "{systolic_number}"
+                            ]
+                        },
+                        {
+                            "name": "diastolic_number",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "{diastolic_number}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "add pressure {systolic_number} by {diastolic_number}",
+                        "my pressure is {systolic_number} by {diastolic_number}",
+                        "register pressure {systolic_number} by {diastolic_number}",
+                        "add pressure {systolic_number} {diastolic_number}",
+                        "my pressure is {systolic_number} {diastolic_number}",
+                        "register pressure {systolic_number} {diastolic_number}"
+                    ]
+                },
+                {
+                    "name": "ReadLastPressureIntent",
+                    "slots": [],
+                    "samples": [
+                        "last blood pressure",
+                        "recover last pressure",
+                        "get last pressure",
+                        "last pressure",
+                        "read my last pressure",
+                        "my last pressure"
+                    ]
+                }
+            ],
+            "types": []
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "RegisterPressureIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "systolic_number",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.862639089379.802784599243"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isGreaterThanOrEqualTo",
+                                    "prompt": "Slot.Validation.862639089379.802784599243.1168956400203",
+                                    "value": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "diastolic_number",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.862639089379.28674936122"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isGreaterThanOrEqualTo",
+                                    "prompt": "Slot.Validation.862639089379.28674936122.1433511105104",
+                                    "value": "0"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.862639089379.802784599243",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is your current systolic top number?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.862639089379.802784599243.1168956400203",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Tell a number greater than or equal to zero."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.862639089379.28674936122",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is your current diastolic bottom number?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.862639089379.28674936122.1433511105104",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Tell a number greater than or equal to zero."
+                    }
+                ]
+            }
+        ]
+    }
 }

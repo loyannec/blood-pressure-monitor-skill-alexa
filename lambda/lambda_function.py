@@ -69,7 +69,39 @@ class RegisterPressureIntentHandler(AbstractRequestHandler):
         diastolic_number = slots['diastolic_number'].value
         speak_output = f'Your pressure {systolic_number} by {diastolic_number} is okay.'
 
-        print(speak_output)
+        print(f'RegisterPressureIntent: {speak_output}\n')
+
+        handler_input.attributes_manager.persistent_attributes['last_pressure'] = {
+            'systolic_number':  int(systolic_number),
+            'diastolic_number': int(diastolic_number)
+        }
+        handler_input.attributes_manager.save_persistent_attributes()
+
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                .set_should_end_session(True)
+                # .ask("add a reprompt if you want to keep the session open for the user to respond")
+                .response
+        )
+
+
+class ReadLastPressureIntentHandler(AbstractRequestHandler):
+    """Handler for Read Last Pressure Intent."""
+    def can_handle(self, handler_input):
+        return ask_utils.is_intent_name("ReadLastPressureIntent")(handler_input)
+
+    def handle(self, handler_input):
+        speak_output = 'There is no blood pressure recorded yet.'
+        attributes = handler_input.attributes_manager.persistent_attributes
+
+        if attributes and 'last_pressure' in attributes:
+            last_pressure = attributes['last_pressure']
+            systolic_number = last_pressure['systolic_number']
+            diastolic_number = last_pressure['diastolic_number']
+            speak_output = f'Your last pressure was {systolic_number} by {diastolic_number}.'
+
+        print(f'ReadLastPressureIntent: {speak_output}\n')
 
         return (
             handler_input.response_builder
@@ -184,6 +216,7 @@ sb = SkillBuilder()
 sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(HelloWorldIntentHandler())
 sb.add_request_handler(RegisterPressureIntentHandler())
+sb.add_request_handler(ReadLastPressureIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
 sb.add_request_handler(SessionEndedRequestHandler())
