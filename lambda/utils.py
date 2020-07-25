@@ -1,8 +1,20 @@
 import logging
 import os
 import boto3
+
+from ask_sdk_s3.adapter import S3Adapter
 from botocore.exceptions import ClientError
 
+def s3_client():
+    return boto3.client('s3',
+                region_name=os.environ.get('S3_PERSISTENCE_REGION'),
+                config=boto3.session.Config(signature_version='s3v4',s3={'addressing_style': 'path'}))
+
+def s3_bucket_name():
+    return os.environ.get('S3_PERSISTENCE_BUCKET')
+
+def s3_adapter():
+    return S3Adapter(s3_bucket_name(), s3_client=s3_client())
 
 def create_presigned_url(object_name):
     """Generate a presigned URL to share an S3 object with a capped expiration of 60 seconds
@@ -10,15 +22,12 @@ def create_presigned_url(object_name):
     :param object_name: string
     :return: Presigned URL as string. If error, returns None.
     """
-    s3_client = boto3.client('s3',
-                             region_name=os.environ.get('S3_PERSISTENCE_REGION'),
-                             config=boto3.session.Config(signature_version='s3v4',s3={'addressing_style': 'path'}))
+    client = s3_client()
     try:
-        bucket_name = os.environ.get('S3_PERSISTENCE_BUCKET')
-        response = s3_client.generate_presigned_url('get_object',
-                                                    Params={'Bucket': bucket_name,
-                                                            'Key': object_name},
-                                                    ExpiresIn=60*1)
+        bucket_name = s3_bucket_name()
+        response = client.generate_presigned_url('get_object',
+                                                Params={'Bucket': bucket_name, 'Key': object_name},
+                                                ExpiresIn=60*1)
     except ClientError as e:
         logging.error(e)
         return None
