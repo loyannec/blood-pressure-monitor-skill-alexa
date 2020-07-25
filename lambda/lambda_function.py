@@ -45,7 +45,7 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "Hello World!"
+        speak_output = "Hi! Welcome to Pressure Monitor!"
 
         return (
             handler_input.response_builder
