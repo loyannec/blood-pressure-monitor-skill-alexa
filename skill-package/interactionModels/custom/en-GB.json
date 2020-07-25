@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "change me",
+      "invocationName": "pressure monitor",
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
