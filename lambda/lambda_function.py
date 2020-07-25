@@ -69,6 +69,8 @@ class RegisterPressureIntentHandler(AbstractRequestHandler):
         diastolic_number = slots['diastolic_number'].value
         speak_output = f'Your pressure {systolic_number} by {diastolic_number} is okay.'
 
+        print(speak_output)
+
         return (
             handler_input.response_builder
                 .speak(speak_output)
