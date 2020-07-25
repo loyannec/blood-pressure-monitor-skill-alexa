@@ -55,6 +55,28 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         )
 
 
+class RegisterPressureIntentHandler(AbstractRequestHandler):
+    """Handler for Register Pressure Intent."""
+    def can_handle(self, handler_input):
+        return ask_utils.is_intent_name("RegisterPressureIntent")(handler_input)
+
+    def handle(self, handler_input):
+        slots = handler_input.request_envelope.request.intent.slots
+
+        print(f'Request slots: {slots}\n')
+
+        systolic_number = slots['systolic_number'].value
+        diastolic_number = slots['diastolic_number'].value
+        speak_output = f'Your pressure {systolic_number} by {diastolic_number} is okay.'
+
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                # .ask("add a reprompt if you want to keep the session open for the user to respond")
+                .response
+        )
+
+
 class HelpIntentHandler(AbstractRequestHandler):
     """Handler for Help Intent."""
     def can_handle(self, handler_input):
@@ -159,6 +181,7 @@ sb = SkillBuilder()
 
 sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(HelloWorldIntentHandler())
+sb.add_request_handler(RegisterPressureIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
 sb.add_request_handler(SessionEndedRequestHandler())
