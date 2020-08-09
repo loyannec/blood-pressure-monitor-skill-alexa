@@ -70,6 +70,17 @@
                         "read my last pressure",
                         "my last pressure"
                     ]
+                },
+                {
+                    "name": "RemoveLastPressureIntent",
+                    "slots": [],
+                    "samples": [
+                        "delete my last blood pressure",
+                        "delete last pressure",
+                        "erase last pressure",
+                        "remove my last pressure",
+                        "remove my last blood pressure"
+                    ]
                 }
             ],
             "types": []

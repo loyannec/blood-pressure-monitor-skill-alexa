@@ -120,6 +120,39 @@ class ReadLastPressureIntentHandler(AbstractRequestHandler):
         )
 
 
+class RemoveLastPressureIntentHandler(AbstractRequestHandler):
+    """Handler for Remove Last Pressure Intent."""
+    def can_handle(self, handler_input):
+        return ask_utils.is_intent_name("RemoveLastPressureIntent")(handler_input)
+
+    def handle(self, handler_input):
+        speak_output = 'There is no blood pressure recorded yet.'
+
+        manager = handler_input.attributes_manager
+        attributes = manager.persistent_attributes
+
+        if attributes and 'pressures' in attributes:
+            pressures = attributes['pressures']
+            last_pressure = pressures[-1]
+            systolic_number = last_pressure['systolic_number']
+            diastolic_number = last_pressure['diastolic_number']
+
+            pressures.pop()
+            manager.persistent_attributes['pressures'] = pressures
+            manager.save_persistent_attributes()
+
+            print(f'RemoveLastPressureIntent: {len(pressures)} (current size)')
+
+            speak_output = f'Your last pressure was {systolic_number} by {diastolic_number} was removed.'
+
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                # .ask("add a reprompt if you want to keep the session open for the user to respond")
+                .response
+        )
+
+
 class HelpIntentHandler(AbstractRequestHandler):
     """Handler for Help Intent."""
     def can_handle(self, handler_input):
@@ -226,6 +259,7 @@ sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(HelloWorldIntentHandler())
 sb.add_request_handler(RegisterPressureIntentHandler())
 sb.add_request_handler(ReadLastPressureIntentHandler())
+sb.add_request_handler(RemoveLastPressureIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
 sb.add_request_handler(SessionEndedRequestHandler())
