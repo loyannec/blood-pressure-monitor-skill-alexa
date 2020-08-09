@@ -131,7 +131,7 @@ class RemoveLastPressureIntentHandler(AbstractRequestHandler):
         manager = handler_input.attributes_manager
         attributes = manager.persistent_attributes
 
-        if attributes and 'pressures' in attributes:
+        if attributes and 'pressures' in attributes and len(attributes['pressures']) > 0:
             pressures = attributes['pressures']
             last_pressure = pressures[-1]
             systolic_number = last_pressure['systolic_number']
