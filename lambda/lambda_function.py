@@ -4,6 +4,7 @@
 # Please visit https://alexa.design/cookbook for additional examples on implementing slots, dialog management,
 # session persistence, api calls, and more.
 # This sample is built using the handler classes approach in skill builder.
+import datetime
 import logging
 import ask_sdk_core.utils as ask_utils
 import utils
@@ -68,15 +69,21 @@ class RegisterPressureIntentHandler(AbstractRequestHandler):
 
         systolic_number = slots['systolic_number'].value
         diastolic_number = slots['diastolic_number'].value
-        speak_output = f'Your pressure {systolic_number} by {diastolic_number} is okay.'
+        manager = handler_input.attributes_manager
+
+        speak_output = f'Your pressure {systolic_number} by {diastolic_number} is normal.'
 
         print(f'RegisterPressureIntent: {speak_output}\n')
 
-        handler_input.attributes_manager.persistent_attributes['last_pressure'] = {
+        if not 'pressures' in manager.persistent_attributes:
+            manager.persistent_attributes['pressures'] = []
+
+        manager.persistent_attributes['pressures'].append({
             'systolic_number':  int(systolic_number),
-            'diastolic_number': int(diastolic_number)
-        }
-        handler_input.attributes_manager.save_persistent_attributes()
+            'diastolic_number': int(diastolic_number),
+            'timestamp': datetime.datetime.now().isoformat()
+        })
+        manager.save_persistent_attributes()
 
         return (
             handler_input.response_builder
@@ -96,8 +103,9 @@ class ReadLastPressureIntentHandler(AbstractRequestHandler):
         speak_output = 'There is no blood pressure recorded yet.'
         attributes = handler_input.attributes_manager.persistent_attributes
 
-        if attributes and 'last_pressure' in attributes:
-            last_pressure = attributes['last_pressure']
+        if attributes and 'pressures' in attributes:
+            last_pressure = attributes['pressures'][-1]
+            print(f'last_pressure: {last_pressure}\n')
             systolic_number = last_pressure['systolic_number']
             diastolic_number = last_pressure['diastolic_number']
             speak_output = f'Your last pressure was {systolic_number} by {diastolic_number}.'
