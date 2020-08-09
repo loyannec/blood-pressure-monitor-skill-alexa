@@ -81,6 +81,36 @@
                         "remove my last pressure",
                         "remove my last blood pressure"
                     ]
+                },
+                {
+                    "name": "EditLastPressureIntent",
+                    "slots": [
+                        {
+                            "name": "systolic_number",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "{systolic_number}"
+                            ]
+                        },
+                        {
+                            "name": "diastolic_number",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "{diastolic_number}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "edit my last pressure to {systolic_number} by {diastolic_number}",
+                        "amend my last pressure to {systolic_number} by {diastolic_number}",
+                        "amend my last pressure",
+                        "amend last pressure",
+                        "edit my last pressure",
+                        "edit my last blood pressure",
+                        "amend last pressure to {systolic_number} by {diastolic_number}",
+                        "set last pressure to {systolic_number} by {diastolic_number}",
+                        "edit last pressure to {systolic_number} by {diastolic_number}"
+                    ]
                 }
             ],
             "types": []
@@ -125,6 +155,45 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "name": "EditLastPressureIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "systolic_number",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1127869984567.1400629200630"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isGreaterThanOrEqualTo",
+                                    "prompt": "Slot.Validation.1127869984567.1400629200630.1123949031341",
+                                    "value": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "diastolic_number",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1127869984567.548186820542"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isGreaterThanOrEqualTo",
+                                    "prompt": "Slot.Validation.1127869984567.548186820542.1386460443481",
+                                    "value": "0"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
             "delegationStrategy": "ALWAYS"
@@ -159,6 +228,42 @@
             },
             {
                 "id": "Slot.Validation.862639089379.28674936122.1433511105104",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Tell a number greater than or equal to zero."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1127869984567.1400629200630",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is your current systolic top number?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1127869984567.548186820542",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is your current diastolic bottom number?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1127869984567.1400629200630.1123949031341",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Tell a number greater than or equal to zero."
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1127869984567.548186820542.1386460443481",
                 "variations": [
                     {
                         "type": "PlainText",

@@ -84,6 +84,7 @@ class RegisterPressureIntentHandler(AbstractRequestHandler):
             'timestamp': datetime.datetime.now().isoformat()
         })
         manager.save_persistent_attributes()
+        manager.session_attributes['can_edit_last_pressure'] = True
 
         return (
             handler_input.response_builder
@@ -131,6 +132,7 @@ class RemoveLastPressureIntentHandler(AbstractRequestHandler):
         manager = handler_input.attributes_manager
         attributes = manager.persistent_attributes
 
+        # Deletes and updates the list of pressures only if at least one pressure was recorded before.
         if attributes and 'pressures' in attributes and len(attributes['pressures']) > 0:
             pressures = attributes['pressures']
             last_pressure = pressures[-1]
@@ -144,6 +146,44 @@ class RemoveLastPressureIntentHandler(AbstractRequestHandler):
             print(f'RemoveLastPressureIntent: {len(pressures)} (current size)')
 
             speak_output = f'Your last pressure was {systolic_number} by {diastolic_number} was removed.'
+
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                # .ask("add a reprompt if you want to keep the session open for the user to respond")
+                .response
+        )
+
+
+class EditLastPressureIntentHandler(AbstractRequestHandler):
+    """Handler for Edit Last Pressure Intent."""
+    def can_handle(self, handler_input):
+        return ask_utils.is_intent_name("EditLastPressureIntent")(handler_input)
+
+    def handle(self, handler_input):
+        speak_output = 'There is no blood pressure recorded yet.'
+
+        manager = handler_input.attributes_manager
+        attributes = manager.persistent_attributes
+
+        # Edit last pressure only if at least one pressure was recorded before.
+        if 'can_edit_last_pressure' in manager.session_attributes:
+            slots = handler_input.request_envelope.request.intent.slots
+
+            print(f'Request slots: {slots}\n')
+
+            systolic_number = int(slots['systolic_number'].value)
+            diastolic_number = int(slots['diastolic_number'].value)
+            pressure = {
+                'systolic_number': systolic_number,
+                'diastolic_number': diastolic_number,
+                'timestamp': datetime.datetime.now().isoformat()
+            }
+            attributes['pressures'].pop()
+            attributes['pressures'].append(pressure)
+            manager.save_persistent_attributes()
+
+            speak_output = f'Your last pressure was edited to {systolic_number} by {diastolic_number}.'
 
         return (
             handler_input.response_builder
@@ -260,6 +300,7 @@ sb.add_request_handler(HelloWorldIntentHandler())
 sb.add_request_handler(RegisterPressureIntentHandler())
 sb.add_request_handler(ReadLastPressureIntentHandler())
 sb.add_request_handler(RemoveLastPressureIntentHandler())
+sb.add_request_handler(EditLastPressureIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
 sb.add_request_handler(SessionEndedRequestHandler())
