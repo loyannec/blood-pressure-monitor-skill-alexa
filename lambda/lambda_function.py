@@ -160,7 +160,7 @@ class EditLastPressureIntentHandler(AbstractRequestHandler):
         return ask_utils.is_intent_name("EditLastPressureIntent")(handler_input)
 
     def handle(self, handler_input):
-        speak_output = 'There is no blood pressure recorded yet.'
+        speak_output = 'You haven\'t registered a pressure recently.'
 
         manager = handler_input.attributes_manager
         attributes = manager.persistent_attributes
