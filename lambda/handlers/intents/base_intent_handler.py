@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import ask_sdk_core.utils as ask_utils
-
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 
 from core import SessionAttributes, Slot, Pressure, PersistentAttributes
@@ -12,28 +11,52 @@ class BaseIntentHandler(AbstractRequestHandler):
         self.intent_name = intent_name
         self.handler_input = None
 
+    def __pressures_list(self):
+        attributes = self.handler_input.attributes_manager.persistent_attributes
+        return attributes[PersistentAttributes.PRESSURES.value] or []
+
+    def __set_pressures_list(self, value):
+        if not isinstance(value, list):
+            pass
+
+        manager = self.handler_input.attributes_manager
+        manager.persistent_attributes[PersistentAttributes.PRESSURES.value] = value
+        manager.save_persistent_attributes()
+
+    def _log(self, message):
+        print(f'{self.intent_name} -> {message}')
+
     def can_handle(self, handler_input):
         self.handler_input = handler_input
         return ask_utils.is_intent_name(self.intent_name)(handler_input)
 
     def add_pressure(self, pressure):
-        manager = self.handler_input.attributes_manager
-        attributes = manager.persistent_attributes
-        pressures_key = PersistentAttributes.PRESSURES.value
-
-        if not pressures_key in attributes:
-            attributes[pressures_key] = []
-
-        attributes[pressures_key].append(pressure.to_dict())
-        manager.save_persistent_attributes()
+        self.__set_pressures_list(self.__pressures_list() + [pressure.to_dict()])
 
     def all_pressures(self):
-        attributes = self.handler_input.attributes_manager.persistent_attributes
-        pressures_key = PersistentAttributes.PRESSURES.value
+        return list(map(lambda item: Pressure.from_dict(item), self.__pressures_list()))
 
-        if pressures_key in attributes:
-            return list(map(lambda item: Pressure.from_dict(item), attributes[pressures_key]))
-        return []
+    def update_pressure_at_index(self, index, pressure):
+        pressures = self.__pressures_list()
+
+        if index < 0 or index >= len(pressures):
+            pass
+
+        pressures[index] = pressure.to_dict()
+        self.__set_pressures_list(pressures)
+
+    def pressures_size(self):
+        return len(self.__pressures_list())
+
+    def pop_last_pressure(self):
+        pressures = self.__pressures_list()
+
+        if len(pressures) == 0:
+            return None
+
+        last = pressures.pop()
+        self.__set_pressures_list(pressures)
+        return Pressure.from_dict(last)
 
     def slot(self, slot):
         slots = self.handler_input.request_envelope.request.intent.slots

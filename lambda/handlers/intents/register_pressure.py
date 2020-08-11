@@ -13,8 +13,7 @@ class RegisterPressureIntentHandler(BaseIntentHandler):
         self.add_pressure(pressure)
         self.set_can_edit_last_pressure(True)
         speak_output = f'Your pressure {pressure.systolic_number} by {pressure.diastolic_number} is normal.'
-
-        print(f'RegisterPressureIntent: {speak_output}\n')
+        self._log(speak_output)
 
         return (
             handler_input.response_builder

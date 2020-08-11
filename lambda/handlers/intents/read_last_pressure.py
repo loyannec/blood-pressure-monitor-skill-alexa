@@ -13,10 +13,10 @@ class ReadLastPressureIntentHandler(BaseIntentHandler):
 
         if len(pressures) > 0:
             last_pressure = pressures[-1]
-            print(f'last_pressure: {last_pressure.to_dict()}\n')
+            self._log(f'last_pressure: {last_pressure.to_dict()}\n')
             speak_output = f'Your last pressure was {last_pressure.systolic_number} by {last_pressure.diastolic_number}.'
 
-        print(f'ReadLastPressureIntent: {speak_output}\n')
+        self._log(speak_output)
 
         return (
             handler_input.response_builder
