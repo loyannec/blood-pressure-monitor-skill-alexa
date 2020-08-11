@@ -20,7 +20,7 @@ class EditLastPressureIntentHandler(BaseIntentHandler):
                 self.update_last_pressure(pressure)
                 speak_output = f'Your last pressure was edited to {pressure.systolic_number} by {pressure.diastolic_number}.'
             else:
-                speak_output = f"You haven't said the systolic number or diastolic number."
+                speak_output = f'You haven\'t said the systolic number or diastolic number.'
 
         self._log(speak_output)
 
