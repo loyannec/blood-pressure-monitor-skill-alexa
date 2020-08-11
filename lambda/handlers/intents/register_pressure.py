@@ -14,18 +14,13 @@ class RegisterPressureIntentHandler(BaseIntentHandler):
         super().__init__('RegisterPressureIntent')
 
     def handle(self, handler_input):
-        slots = handler_input.request_envelope.request.intent.slots
-
-        print(f'Request slots: {slots}\n')
-
         systolic_number = self.systolic_number()
         diastolic_number = self.diastolic_number()
         speak_output = f'Your pressure {systolic_number} by {diastolic_number} is normal.'
+        self.add_pressure(Pressure(systolic_number, diastolic_number))
+        self.set_can_edit_last_pressure(True)
 
         print(f'RegisterPressureIntent: {speak_output}\n')
-
-        self.add_pressure(Pressure(self.systolic_number(), self.diastolic_number()))
-        self.set_can_edit_last_pressure(True)
 
         return (
             handler_input.response_builder

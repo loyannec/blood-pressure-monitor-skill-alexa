@@ -14,6 +14,10 @@ class BaseIntentHandler(AbstractRequestHandler):
 
     def can_handle(self, handler_input):
         self.handler_input = handler_input
+
+        slots = handler_input.request_envelope.request.intent.slots
+        print(f'Request slots: {slots}\n')
+
         return ask_utils.is_intent_name(self.intent_name)(handler_input)
 
     def add_pressure(self, pressure):
@@ -28,6 +32,7 @@ class BaseIntentHandler(AbstractRequestHandler):
 
     def slot(self, slot):
         slots = self.handler_input.request_envelope.request.intent.slots
+        print(f'Check slot {slot} in {slots}')
         if slot in slots:
             return slots[slot].value
         return None
