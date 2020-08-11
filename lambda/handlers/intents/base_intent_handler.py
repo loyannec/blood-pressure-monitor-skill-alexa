@@ -32,6 +32,7 @@ class BaseIntentHandler(AbstractRequestHandler):
         pressures_key = PersistentAttributes.PRESSURES.value
 
         if pressures_key in attributes:
+            print(f'pressures: {attributes[pressures_key]}')
             return map(lambda item: Pressure.from_dict(item), attributes[pressures_key])
         return []
 

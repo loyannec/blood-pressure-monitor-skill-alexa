@@ -15,10 +15,11 @@ class Pressure:
         self.timestamp = timestamp
 
     @classmethod
-    def from_dict(cls, dict):
-        return Pressure(systolic_number=dict[cls.__SYSTOLIC_NUMBER],
-                        diastolic_number=dict[cls.__DIASTOLIC_NUMBER],
-                        timestamp=dateutil.parser.parse(dict[cls.__TIMESTAMP]))
+    def from_dict(cls, item):
+        print(item)
+        return Pressure(systolic_number=item[cls.__SYSTOLIC_NUMBER],
+                        diastolic_number=item[cls.__DIASTOLIC_NUMBER],
+                        timestamp=dateutil.parser.parse(item[cls.__TIMESTAMP]))
 
     def to_dict(self):
         return {
