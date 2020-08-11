@@ -3,5 +3,5 @@
 from enum import Enum
 
 class Slot(Enum):
-    systolic_number = 'systolic_number'
-    diastolic_number = 'diastolic_number'
+    SYSTOLIC_NUMBER = 'systolic_number'
+    DIASTOLIC_NUMBER = 'diastolic_number'

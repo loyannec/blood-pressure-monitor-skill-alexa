@@ -14,25 +14,20 @@ class BaseIntentHandler(AbstractRequestHandler):
 
     def can_handle(self, handler_input):
         self.handler_input = handler_input
-
-        slots = handler_input.request_envelope.request.intent.slots
-        print(f'Request slots: {slots}\n')
-
         return ask_utils.is_intent_name(self.intent_name)(handler_input)
 
     def add_pressure(self, pressure):
         manager = self.handler_input.attributes_manager
         attributes = manager.persistent_attributes
 
-        if not PersistentAttributes.pressures in attributes:
-            attributes[PersistentAttributes.pressures] = []
+        if not PersistentAttributes.PRESSURES in attributes:
+            attributes[PersistentAttributes.PRESSURES] = []
 
-        attributes[PersistentAttributes.pressures].append(pressure.to_dict())
+        attributes[PersistentAttributes.PRESSURES].append(pressure.to_dict())
         manager.save_persistent_attributes()
 
     def slot(self, slot):
         slots = self.handler_input.request_envelope.request.intent.slots
-        print(f'Check slot {slot} in {slots}')
         if slot in slots:
             return slots[slot].value
         return None
@@ -46,19 +41,19 @@ class BaseIntentHandler(AbstractRequestHandler):
         return manager.session_attributes[key]
 
     def can_edit_last_pressure(self):
-        return self.get_session_value(SessionAttributes.can_edit_last_pressure)
+        return self.get_session_value(SessionAttributes.CAN_EDIT_LAST_PRESSURE.value)
 
     def set_can_edit_last_pressure(self, can_edit):
-        self.set_session_value(SessionAttributes.can_edit_last_pressure, can_edit)
+        self.set_session_value(SessionAttributes.CAN_EDIT_LAST_PRESSURE.value, can_edit)
 
     def systolic_number(self):
-        value = self.slot(Slot.systolic_number)
+        value = self.slot(Slot.SYSTOLIC_NUMBER.value)
         if value is not None:
             return int(value)
         return None
 
     def diastolic_number(self):
-        value = self.slot(Slot.diastolic_number)
+        value = self.slot(Slot.SYSTOLIC_NUMBER.value)
         if value is not None:
             return int(value)
         return None

@@ -3,4 +3,4 @@
 from enum import Enum
 
 class PersistentAttributes(Enum):
-    pressures = 'pressures'
+    PRESSURES = 'pressures'

@@ -3,4 +3,4 @@
 from enum import Enum
 
 class SessionAttributes(Enum):
-    can_edit_last_pressure = 'can_edit_last_pressure'
+    CAN_EDIT_LAST_PRESSURE = 'can_edit_last_pressure'
