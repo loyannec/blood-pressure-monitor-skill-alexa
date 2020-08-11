@@ -5,11 +5,12 @@ import ask_sdk_core.utils as ask_utils
 
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 
+from .base_intent_handler import BaseIntentHandler
 
-class RegisterPressureIntentHandler(AbstractRequestHandler):
-    """Handler for Register Pressure Intent."""
-    def can_handle(self, handler_input):
-        return ask_utils.is_intent_name("RegisterPressureIntent")(handler_input)
+
+class RegisterPressureIntentHandler(BaseIntentHandler):
+    def __init__(self):
+        super().__init__('RegisterPressureIntent')
 
     def handle(self, handler_input):
         slots = handler_input.request_envelope.request.intent.slots
