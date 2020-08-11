@@ -13,7 +13,7 @@ class HelpIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "You can say hello to me! How can I help?"
+        speak_output = "You can register your blood pressure. You can also read, edit or remove the last one recorded."
 
         return (
             handler_input.response_builder
