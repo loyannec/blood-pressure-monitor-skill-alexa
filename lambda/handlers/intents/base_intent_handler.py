@@ -45,6 +45,9 @@ class BaseIntentHandler(AbstractRequestHandler):
         pressures[index] = pressure.to_dict()
         self.__set_pressures_list(pressures)
 
+    def update_last_pressure(self, pressure):
+        self.update_pressure_at_index(-1, pressure)
+
     def pressures_size(self):
         return len(self.__pressures_list())
 
