@@ -19,11 +19,12 @@ class BaseIntentHandler(AbstractRequestHandler):
     def add_pressure(self, pressure):
         manager = self.handler_input.attributes_manager
         attributes = manager.persistent_attributes
+        pressures_key = PersistentAttributes.PRESSURES.value
 
-        if not PersistentAttributes.PRESSURES in attributes:
-            attributes[PersistentAttributes.PRESSURES] = []
+        if not pressures_key in attributes:
+            attributes[pressures_key] = []
 
-        attributes[PersistentAttributes.PRESSURES].append(pressure.to_dict())
+        attributes[pressures_key].append(pressure.to_dict())
         manager.save_persistent_attributes()
 
     def slot(self, slot):
