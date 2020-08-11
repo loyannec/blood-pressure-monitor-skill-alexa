@@ -16,7 +16,6 @@ class Pressure:
 
     @classmethod
     def from_dict(cls, item):
-        print(item)
         return Pressure(systolic_number=item[cls.__SYSTOLIC_NUMBER],
                         diastolic_number=item[cls.__DIASTOLIC_NUMBER],
                         timestamp=dateutil.parser.parse(item[cls.__TIMESTAMP]))
