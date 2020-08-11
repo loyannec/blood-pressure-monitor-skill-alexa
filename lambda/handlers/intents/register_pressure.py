@@ -14,11 +14,10 @@ class RegisterPressureIntentHandler(BaseIntentHandler):
         super().__init__('RegisterPressureIntent')
 
     def handle(self, handler_input):
-        systolic_number = self.systolic_number()
-        diastolic_number = self.diastolic_number()
-        speak_output = f'Your pressure {systolic_number} by {diastolic_number} is normal.'
-        self.add_pressure(Pressure(systolic_number, diastolic_number))
+        pressure = Pressure(self.systolic_number(), self.diastolic_number())
+        self.add_pressure(pressure)
         self.set_can_edit_last_pressure(True)
+        speak_output = f'Your pressure {pressure.systolic_number} by {pressure.diastolic_number} is normal.'
 
         print(f'RegisterPressureIntent: {speak_output}\n')
 

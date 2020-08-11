@@ -54,7 +54,7 @@ class BaseIntentHandler(AbstractRequestHandler):
         return None
 
     def diastolic_number(self):
-        value = self.slot(Slot.SYSTOLIC_NUMBER.value)
+        value = self.slot(Slot.DIASTOLIC_NUMBER.value)
         if value is not None:
             return int(value)
         return None
