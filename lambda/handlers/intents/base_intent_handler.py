@@ -27,6 +27,14 @@ class BaseIntentHandler(AbstractRequestHandler):
         attributes[pressures_key].append(pressure.to_dict())
         manager.save_persistent_attributes()
 
+    def all_pressures(self):
+        attributes = self.handler_input.attributes_manager.persistent_attributes
+        pressures_key = PersistentAttributes.PRESSURES.value
+
+        if pressures_key in attributes:
+            return map(lambda item: Pressure.from_dict(item), attributes[pressures_key])
+        return []
+
     def slot(self, slot):
         slots = self.handler_input.request_envelope.request.intent.slots
         if slot in slots:
