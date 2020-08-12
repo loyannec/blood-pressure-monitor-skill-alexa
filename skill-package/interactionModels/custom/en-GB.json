@@ -96,6 +96,20 @@
                         "set last pressure to {systolic_number} by {diastolic_number}",
                         "edit last pressure to {systolic_number} by {diastolic_number}"
                     ]
+                },
+                {
+                    "name": "ReportLatestPressuresIntent",
+                    "slots": [
+                        {
+                            "name": "pressures_number",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "report last {pressures_number} pressures",
+                        "create report",
+                        "give me report"
+                    ]
                 }
             ],
             "types": []
@@ -180,6 +194,27 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "name": "ReportLatestPressuresIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "pressures_number",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {},
+                            "validations": [
+                                {
+                                    "type": "isGreaterThan",
+                                    "prompt": "Slot.Validation.757196833496.566052527028.751355199972",
+                                    "value": "0"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
             "delegationStrategy": "ALWAYS"
@@ -254,6 +289,15 @@
                     {
                         "type": "PlainText",
                         "value": "Tell a number greater than or equal to zero."
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.757196833496.566052527028.751355199972",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "How many pressures should I add to report?"
                     }
                 ]
             }

@@ -7,6 +7,7 @@ from .read_last_pressure import ReadLastPressureIntentHandler
 from .reflector import IntentReflectorHandler
 from .register_pressure import RegisterPressureIntentHandler
 from .remove_last_pressure import RemoveLastPressureIntentHandler
+from .report_latest_pressures import ReportLatestPressuresIntentHandler
 
 __all__ = [
     'CancelOrStopIntentHandler',
@@ -15,5 +16,6 @@ __all__ = [
     'ReadLastPressureIntentHandler',
     'IntentReflectorHandler',
     'RegisterPressureIntentHandler',
-    'RemoveLastPressureIntentHandler'
+    'RemoveLastPressureIntentHandler',
+    'ReportLatestPressuresIntentHandler'
 ]
