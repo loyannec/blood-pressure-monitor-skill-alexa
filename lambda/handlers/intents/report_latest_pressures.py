@@ -11,7 +11,7 @@ class ReportLatestPressuresIntentHandler(BaseIntentHandler):
         super().__init__('ReportLatestPressuresIntent')
 
     def handle(self, handler_input):
-        latest_number = 5
+        latest_number = 21
         all_pressures = self.all_pressures()
         latest_pressures = all_pressures[-min(latest_number, len(all_pressures)):]
         card_title = f'Your latest {latest_number} pressures'
