@@ -31,8 +31,11 @@ class AddReminderIntentHandler(BaseIntentHandler):
                 "status" : "ENABLED"
             }
         }
-        headers = { 'Authorization': system.api_access_token }
+        headers = { 'Authorization': f'Bearer {system.api_access_token}' }
         endpoint = f'{system.api_endpoint}/v1/alerts/reminders'
+
+        self._log(headers)
+        self._log(endpoint)
 
         response = requests.post(endpoint, json=json, headers=headers)
 
