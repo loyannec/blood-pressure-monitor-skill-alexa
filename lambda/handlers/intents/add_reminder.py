@@ -27,6 +27,7 @@ class AddReminderIntentHandler(BaseIntentHandler):
             "requestTime" : datetime.datetime.now().isoformat(),
             "trigger": {
                 "type" : "SCHEDULED_ABSOLUTE",
+                "timeZoneId" : "Europe/Dublin",
                 "recurrence" : {
                     "recurrenceRules" : [
                         f"FREQ=DAILY;BYHOUR={hour};BYMINUTE={minute};",
@@ -49,8 +50,7 @@ class AddReminderIntentHandler(BaseIntentHandler):
         headers = { 'Authorization': f'Bearer {system.api_access_token}' }
         endpoint = f'{system.api_endpoint}/v1/alerts/reminders'
 
-        self._log(headers)
-        self._log(endpoint)
+        self._log(f'Add reminder to: {hour}:{minute}')
 
         response = requests.post(endpoint, json=json, headers=headers)
 
