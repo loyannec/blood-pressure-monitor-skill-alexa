@@ -8,7 +8,7 @@ from .read_last_pressure import ReadLastPressureIntentHandler
 from .reflector import IntentReflectorHandler
 from .register_pressure import RegisterPressureIntentHandler
 from .remove_last_pressure import RemoveLastPressureIntentHandler
-from .remove_reminders import RemoveRemindersIntentHandler
+from .remove_reminder import RemoveReminderIntentHandler
 from .report_latest_pressures import ReportLatestPressuresIntentHandler
 
 __all__ = [
@@ -20,6 +20,6 @@ __all__ = [
     'IntentReflectorHandler',
     'RegisterPressureIntentHandler',
     'RemoveLastPressureIntentHandler',
-    'RemoveRemindersIntentHandler',
+    'RemoveReminderIntentHandler',
     'ReportLatestPressuresIntentHandler'
 ]

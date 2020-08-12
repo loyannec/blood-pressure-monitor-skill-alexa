@@ -85,6 +85,16 @@ class BaseIntentHandler(AbstractRequestHandler):
         all_reminders = list(filter(lambda r: r.identifier != identifier, self.all_reminders()))
         self.__set_reminders_list(list(map(lambda r: r.to_dict(), all_reminders)))
 
+    def reminder_at_time(self):
+        all_reminders = self.all_reminders()
+        hour = self.hour()
+        self = self.minute()
+
+        for reminder in all_reminders:
+            if hour == reminder.hour and minute == reminder.minute:
+                return reminder
+        return None
+
     def slot(self, slot):
         slots = self.handler_input.request_envelope.request.intent.slots
         if slot in slots:
@@ -130,7 +140,7 @@ class BaseIntentHandler(AbstractRequestHandler):
         return time
 
     def hour(self):
-        return self.time().split(':')[0]
+        return int(self.time().split(':')[0])
 
     def minute(self):
-        return self.time().split(':')[1]
+        return int(self.time().split(':')[1])

@@ -122,14 +122,21 @@
                     ]
                 },
                 {
-                    "name": "RemoveRemindersIntent",
-                    "slots": [],
+                    "name": "RemoveReminderIntent",
+                    "slots": [
+                        {
+                            "name": "time",
+                            "type": "AMAZON.TIME",
+                            "samples": [
+                                "{time}"
+                            ]
+                        }
+                    ],
                     "samples": [
-                        "unset reminders",
-                        "clear reminders",
-                        "remove reminders",
-                        "delete reminders",
-                        "remove all reminders"
+                        "unset reminder {time}",
+                        "clear reminder {time}",
+                        "remove reminder {time}",
+                        "delete reminder {time}"
                     ]
                 }
             ],
@@ -237,6 +244,22 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "RemoveReminderIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "time",
+                            "type": "AMAZON.TIME",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1588721238537.1265839314492"
+                            }
+                        }
+                    ]
                 }
             ],
             "delegationStrategy": "ALWAYS"
@@ -329,6 +352,15 @@
                     {
                         "type": "PlainText",
                         "value": "What time should I set the reminder?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1588721238537.1265839314492",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What time this reminder is set for?"
                     }
                 ]
             }

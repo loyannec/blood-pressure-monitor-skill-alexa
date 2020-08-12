@@ -11,6 +11,15 @@ class AddReminderIntentHandler(BaseIntentHandler):
         super().__init__('AddReminderIntent')
 
     def handle(self, handler_input):
+        if self.reminder_at_time() is not None:
+            speak_output = 'Okay, this reminder is already set.'
+            return (
+                handler_input.response_builder
+                    .speak(speak_output)
+                    .ask(speak_output)
+                    .response
+            )
+
         system = self.handler_input.request_envelope.context.system
         hour = self.hour()
         minute = self.minute()
