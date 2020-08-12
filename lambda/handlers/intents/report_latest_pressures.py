@@ -11,9 +11,10 @@ class ReportLatestPressuresIntentHandler(BaseIntentHandler):
         super().__init__('ReportLatestPressuresIntent')
 
     def handle(self, handler_input):
-        pressures_number = 5
-        pressures = self.all_pressures()[-pressures_number:0]
-        card_title = f'Your latest {pressures_number} pressures'
+        latest_number = 5
+        all_pressures = self.all_pressures()
+        latest_pressures = all_pressures[-latest_number:0]
+        card_title = f'Your latest {latest_number} pressures'
         card_text = ''
         card_image = Image(
             'https://90498ba5-d714-4cdd-8bee-aa996ca74278-us-east-1.s3.amazonaws.com/Media/pressure_monitor_medium.png',
@@ -21,9 +22,10 @@ class ReportLatestPressuresIntentHandler(BaseIntentHandler):
         )
         speak_output = 'Your report was sent to your account. You can check it on the portal or the mobile app.'
 
-        self._log(f'latest pressures: {pressures}')
+        self._log(f'all pressures: {all_pressures}')
+        self._log(f'latest pressures: {latest_pressures}')
 
-        for pressure in pressures:
+        for pressure in latest_pressures:
             card_text += f'-> {pressure.systolic_number} by {pressure.diastolic_number} as {pressure.status().description()}\n'
 
         card = StandardCard(card_title, card_text, card_image)
