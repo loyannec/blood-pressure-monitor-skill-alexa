@@ -3,7 +3,7 @@ import requests
 import datetime
 
 from .base_intent_handler import BaseIntentHandler
-from core import Pressure, PressureStatus
+from core import Pressure, PressureStatus, Reminder
 
 
 class AddReminderIntentHandler(BaseIntentHandler):
@@ -12,17 +12,8 @@ class AddReminderIntentHandler(BaseIntentHandler):
 
     def handle(self, handler_input):
         system = self.handler_input.request_envelope.context.system
-        time = self.slot('time')
-        if time == 'EV':
-            time = '18:00'
-        elif time == 'NI':
-            time = '20:00'
-        elif time == 'MO':
-            time = '06:00'
-        elif time == 'AF':
-            time = '14:00'
-        hour = time.split(':')[0]
-        minute = time.split(':')[1]
+        hour = self.hour()
+        minute = self.minute()
         json = {
             "requestTime" : datetime.datetime.now().isoformat(),
             "trigger": {
@@ -56,7 +47,12 @@ class AddReminderIntentHandler(BaseIntentHandler):
 
         self._log(f'Status code: {response.status_code}')
         self._log(response.json())
-        speak_output = 'Alright, I will remind you when the time comes.'
+
+        if 'alertToken' in response:
+            speak_output = 'Alright, I will remind you when the time comes.'
+            self.add_reminder(Reminder(identifier=response['alertToken'], hour=hour, minute=minute))
+        else:
+            speak_output = 'Whoops! Something went wrong, please try again.'
 
         return (
             handler_input.response_builder

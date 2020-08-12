@@ -4,3 +4,4 @@ from enum import Enum
 
 class PersistentAttributes(Enum):
     PRESSURES = 'pressures'
+    REMINDERS = 'reminders'
