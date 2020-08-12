@@ -45,5 +45,7 @@ class Pressure:
             return PressureStatus.GRADE_III_HYPERTENSION
         elif systolic_number >= 140 and diastolic_number < 90:
             return PressureStatus.ISOLATED_SYSTOLIC_HYPERTENSION
+        elif systolic_number < 100 and diastolic_number < 60:
+            return PressureStatus.HYPOTENSION
 
         return PressureStatus.OPTIMAL

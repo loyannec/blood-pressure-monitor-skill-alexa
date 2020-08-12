@@ -10,15 +10,17 @@ class PressureStatus(Enum):
     GRADE_II_HYPERTENSION = -2
     GRADE_III_HYPERTENSION = -3
     ISOLATED_SYSTOLIC_HYPERTENSION = -4
+    HYPOTENSION = -5
 
     def description(self):
         descriptions = {
             PressureStatus.OPTIMAL.value: 'Optimal',
             PressureStatus.NORMAL.value: 'Normal',
             PressureStatus.HIGH_NORMAL.value: 'High normal',
-            PressureStatus.GRADE_I_HYPERTENSION.value: 'Grade I hypertension',
+            PressureStatus.GRADE_I_HYPERTENSION.value: 'Grade 1 hypertension',
             PressureStatus.GRADE_II_HYPERTENSION.value: 'Grade 2 hypertension',
             PressureStatus.GRADE_III_HYPERTENSION.value: 'Grade 3 hypertension',
-            PressureStatus.ISOLATED_SYSTOLIC_HYPERTENSION.value: 'Isolated systolic hypertension'
+            PressureStatus.ISOLATED_SYSTOLIC_HYPERTENSION.value: 'Isolated systolic hypertension',
+            PressureStatus.HYPOTENSION.value: 'Hypotension'
         }
         return descriptions[self.value]
