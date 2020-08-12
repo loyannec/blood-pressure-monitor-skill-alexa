@@ -11,7 +11,7 @@ class AddReminderIntentHandler(BaseIntentHandler):
         super().__init__('AddReminderIntent')
 
     def handle(self, handler_input):
-        system = self.handler_input.request_envelope.system
+        system = self.handler_input.request_envelope.context.system
         json = {
             "requestTime" : datetime.datetime.now().isoformat(),
             "trigger": {
