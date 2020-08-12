@@ -5,6 +5,7 @@ from ask_sdk_model.ui.image import Image
 from .base_intent_handler import BaseIntentHandler
 from core import Pressure, PressureStatus
 
+
 class ReportLatestPressuresIntentHandler(BaseIntentHandler):
     def __init__(self):
         super().__init__('ReportLatestPressuresIntent')
@@ -12,13 +13,15 @@ class ReportLatestPressuresIntentHandler(BaseIntentHandler):
     def handle(self, handler_input):
         pressures_number = 5
         pressures = self.all_pressures()[-pressures_number:0]
-        card_title = 'Your latest {pressures_number} pressures'
+        card_title = f'Your latest {pressures_number} pressures'
         card_text = ''
         card_image = Image(
             'https://90498ba5-d714-4cdd-8bee-aa996ca74278-us-east-1.s3.amazonaws.com/Media/pressure_monitor_medium.png',
             'https://90498ba5-d714-4cdd-8bee-aa996ca74278-us-east-1.s3.amazonaws.com/Media/pressure_monitor_large.png'
         )
         speak_output = 'Your report was sent to your account. You can check it on the portal or the mobile app.'
+
+        self._log(f'latest pressures: {pressures}')
 
         for pressure in pressures:
             card_text += f'-> {pressure.systolic_number} by {pressure.diastolic_number} as {pressure.status().description()}\n'
@@ -32,7 +35,5 @@ class ReportLatestPressuresIntentHandler(BaseIntentHandler):
                 .set_card(card)
                 .response
         )
-
-
 
 # pressure.timestamp.strftime('%d %b %Y %H:%M')
