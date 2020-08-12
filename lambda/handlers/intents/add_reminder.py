@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import requests
+import datetime
 
 from .base_intent_handler import BaseIntentHandler
 from core import Pressure, PressureStatus
@@ -10,8 +11,9 @@ class AddReminderIntentHandler(BaseIntentHandler):
         super().__init__('AddReminderIntent')
 
     def handle(self, handler_input):
+        system = self.handler_input.request_envelope.system
         json = {
-            "requestTime" : "2019-09-22T19:04:00.672",
+            "requestTime" : datetime.datetime.now().isoformat(),
             "trigger": {
                 "type" : "SCHEDULED_RELATIVE",
                 "offsetInSeconds" : "10"
@@ -29,8 +31,11 @@ class AddReminderIntentHandler(BaseIntentHandler):
                 "status" : "ENABLED"
             }
         }
+        headers = { 'Authorization': system.api_access_token }
+        endpoint = f'{system.api_endpoint}/v1/alerts/reminders'
 
-        response = requests.post('https://httpbin.org/post', json=json)
+        response = requests.post(endpoint, json=json, headers=headers)
+
         self._log(f'Status code: {response.status_code}')
         self._log(response.json())
         speak_output = 'Ready to go'
