@@ -117,6 +117,7 @@
                         }
                     ],
                     "samples": [
+                        "add reminder to {time}",
                         "add reminder for {time}"
                     ]
                 },
