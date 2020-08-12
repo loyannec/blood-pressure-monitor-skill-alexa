@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from .base_intent_handler import BaseIntentHandler
-from core import Pressure
+from core import Pressure, PressureStatus
 
 
 class RegisterPressureIntentHandler(BaseIntentHandler):
@@ -13,6 +13,8 @@ class RegisterPressureIntentHandler(BaseIntentHandler):
         self.add_pressure(pressure)
         self.set_can_edit_last_pressure(True)
         speak_output = f'Your pressure {pressure.systolic_number} by {pressure.diastolic_number} is described as {pressure.status().description()}.'
+        if pressure.status().value < 0:
+            speak_output += 'If you are not feeling well call your GP.'
         self._log(speak_output)
 
         return (
