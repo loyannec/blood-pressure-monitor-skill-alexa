@@ -25,7 +25,8 @@ class ReportLatestPressuresIntentHandler(BaseIntentHandler):
         self._log(f'latest pressures: {latest_pressures}')
 
         for pressure in latest_pressures:
-            card_text += f'❤️ {pressure.systolic_number} by {pressure.diastolic_number} as {pressure.status().description()} at {pressure.timestamp.strftime('%d %b %Y %H:%M')}\n'
+            date = pressure.timestamp.strftime('%d %b %Y %H:%M')
+            card_text += f'❤️ {pressure.systolic_number} by {pressure.diastolic_number} as {pressure.status().description()} at {date}\n'
 
         card = StandardCard(card_title, card_text, card_image)
 
