@@ -88,7 +88,7 @@ class BaseIntentHandler(AbstractRequestHandler):
     def reminder_at_time(self):
         all_reminders = self.all_reminders()
         hour = self.hour()
-        self = self.minute()
+        minute = self.minute()
 
         for reminder in all_reminders:
             if hour == reminder.hour and minute == reminder.minute:
