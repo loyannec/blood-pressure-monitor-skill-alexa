@@ -11,9 +11,11 @@ class ReportLatestPressuresIntentHandler(BaseIntentHandler):
         super().__init__('ReportLatestPressuresIntent')
 
     def handle(self, handler_input):
-        latest_number = 21
         all_pressures = self.all_pressures()
-        latest_pressures = all_pressures[-min(latest_number, len(all_pressures)):]
+        latest_number_limit = 21
+        latest_number = min(latest_number_limit, len(all_pressures))
+
+        latest_pressures = all_pressures[-latest_number:]
         card_title = f'Your latest {latest_number} pressures'
         card_text = ''
         card_image = Image(
