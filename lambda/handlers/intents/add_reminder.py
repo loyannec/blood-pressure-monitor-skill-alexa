@@ -46,13 +46,15 @@ class AddReminderIntentHandler(BaseIntentHandler):
         response = requests.post(endpoint, json=json, headers=headers)
 
         self._log(f'Status code: {response.status_code}')
-        self._log(response.json())
 
-        if 'alertToken' in response.json():
+        response_json = response.json()
+        self._log(response_json)
+
+        if 'alertToken' in response_json:
             speak_output = 'Alright, I will remind you when the time comes.'
-            self.add_reminder(Reminder(identifier=response['alertToken'], hour=hour, minute=minute))
+            self.add_reminder(Reminder(identifier=response_json['alertToken'], hour=hour, minute=minute))
         else:
-            speak_output = 'Whoops! Something went wrong, please try again.'
+            speak_output = 'Something went wrong, please try again.'
 
         return (
             handler_input.response_builder
