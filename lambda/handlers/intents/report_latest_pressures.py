@@ -15,7 +15,7 @@ class ReportLatestPressuresIntentHandler(BaseIntentHandler):
         latest_number_limit = 21
         latest_number = min(latest_number_limit, len(all_pressures))
 
-        latest_pressures = all_pressures[-latest_number:]
+        latest_pressures = reversed(all_pressures[-latest_number:])
         card_title = f'Your latest {latest_number} pressures'
         card_text = ''
         card_image = Image(
