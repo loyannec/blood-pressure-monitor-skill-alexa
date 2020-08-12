@@ -140,7 +140,7 @@ class BaseIntentHandler(AbstractRequestHandler):
         return time
 
     def hour(self):
-        return int(self.time().split(':')[0])
+        return self.time().split(':')[0]
 
     def minute(self):
-        return int(self.time().split(':')[1])
+        return self.time().split(':')[1]
