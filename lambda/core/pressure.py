@@ -16,7 +16,7 @@ class Pressure:
         self.diastolic_number = diastolic_number
         self.timestamp = timestamp
 
-    def __str__(self):
+    def __repr__(self):
         return ('{ ' +
             f'{self.systolic_number} by {self.diastolic_number} as {self.status().description()} at {self.timestamp.isoformat()}' +
         ' }')
