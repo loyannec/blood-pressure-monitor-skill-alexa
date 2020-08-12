@@ -17,8 +17,8 @@ class ReportLatestPressuresIntentHandler(BaseIntentHandler):
         card_title = f'Your latest {latest_number} pressures'
         card_text = ''
         card_image = Image(
-            'https://drive.google.com/file/d/1NGt5K8C5gH92Xlfm6d_paCWfotAP-fRb/view?usp=sharing',
-            'https://drive.google.com/file/d/1wDiddNjJMhjkWhcKChH-Tt5BO06fmayU/view?usp=sharing'
+            'https://pressure-monitor-logo.s3-eu-west-1.amazonaws.com/pressure_monitor_medium.png',
+            'https://pressure-monitor-logo.s3-eu-west-1.amazonaws.com/pressure_monitor_large.png'
         )
         speak_output = 'Your report was sent to your account. You can check it on the portal or the mobile app.'
 
