@@ -48,7 +48,7 @@ class AddReminderIntentHandler(BaseIntentHandler):
         self._log(f'Status code: {response.status_code}')
         self._log(response.json())
 
-        if 'alertToken' in response:
+        if 'alertToken' in response.json():
             speak_output = 'Alright, I will remind you when the time comes.'
             self.add_reminder(Reminder(identifier=response['alertToken'], hour=hour, minute=minute))
         else:
