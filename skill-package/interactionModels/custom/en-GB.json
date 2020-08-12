@@ -104,6 +104,32 @@
                         "create report",
                         "give me report"
                     ]
+                },
+                {
+                    "name": "AddReminderIntent",
+                    "slots": [
+                        {
+                            "name": "time",
+                            "type": "AMAZON.TIME",
+                            "samples": [
+                                "{time}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "add reminder for {time}"
+                    ]
+                },
+                {
+                    "name": "RemoveRemindersIntent",
+                    "slots": [],
+                    "samples": [
+                        "unset reminders",
+                        "clear reminders",
+                        "remove reminders",
+                        "delete reminders",
+                        "remove all reminders"
+                    ]
                 }
             ],
             "types": []
@@ -194,6 +220,22 @@
                     "confirmationRequired": false,
                     "prompts": {},
                     "slots": []
+                },
+                {
+                    "name": "AddReminderIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "time",
+                            "type": "AMAZON.TIME",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.453902817015.14742826462"
+                            }
+                        }
+                    ]
                 }
             ],
             "delegationStrategy": "ALWAYS"
@@ -277,6 +319,15 @@
                     {
                         "type": "PlainText",
                         "value": "How many pressures should I add to report?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.453902817015.14742826462",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What time should I set the reminder?"
                     }
                 ]
             }
