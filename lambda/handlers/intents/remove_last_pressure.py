@@ -12,7 +12,7 @@ class RemoveLastPressureIntentHandler(BaseIntentHandler):
         speak_output = 'There is no blood pressure recorded yet.'
 
         # Deletes and updates the list of pressures only if at least one pressure was recorded before.
-        if len(self.pressures_size()) > 0:
+        if self.pressures_size():
             pressure = self.pop_last_pressure()
             speak_output = f'Your last pressure {pressure.systolic_number} by {pressure.diastolic_number} was removed.'
             self._log(f'current size: {self.pressures_size()}')

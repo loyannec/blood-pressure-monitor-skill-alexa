@@ -50,12 +50,10 @@
                     "name": "ReadLastPressureIntent",
                     "slots": [],
                     "samples": [
-                        "last blood pressure",
+                        "get last blood pressure",
                         "recover last pressure",
                         "get last pressure",
-                        "last pressure",
-                        "read my last pressure",
-                        "my last pressure"
+                        "read my last pressure"
                     ]
                 },
                 {
