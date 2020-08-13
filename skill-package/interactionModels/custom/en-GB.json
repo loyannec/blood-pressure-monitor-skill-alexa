@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "pressure monitor",
+            "invocationName": "blood pressure monitor",
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",
