@@ -14,7 +14,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = 'Welcome to Pressure Monitor! <audio src="soundbank://soundlibrary/hospital/heartbeats_ekg/heartbeats_ekg_07"/>'
+        speak_output = 'Welcome to Blood Pressure Monitor! <audio src="soundbank://soundlibrary/hospital/heartbeats_ekg/heartbeats_ekg_07"/>'
 
         return (
             handler_input.response_builder
